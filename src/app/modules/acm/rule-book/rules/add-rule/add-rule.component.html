@@ -1,0 +1,61 @@
+<div class="flex-auto">
+    <h2 mat-dialog-title>Add Rule</h2>
+    <p class="border border-solid border-t-3 border-slate-300 w-full"></p>
+    <form class="mt-8" [formGroup]="form">
+        <mat-dialog-content class="mat-typography">
+            <mat-form-field class="w-full">
+                <mat-label>Rule ID</mat-label>
+                <input matInput type="text" formControlName="ruleName" placeholder="Enter Rule Name..."/>
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <mat-label>Rule Description</mat-label>
+                <textarea matInput type="text" formControlName="ruleDescription" placeholder="Enter Rule Description..."></textarea>
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <mat-label>Rule Type</mat-label>
+                <mat-select formControlName="ruleTypeId">
+                    <mat-option *ngFor="let type of ruleTypes" [value]="type.id">
+                      {{type.name}}
+                    </mat-option>
+                  </mat-select>
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <mat-label>Business Process</mat-label>
+                <mat-select formControlName="businessProcessId" (selectionChange)="onSelect($event)">
+                    <mat-option *ngFor="let process of businessProcess" [value]="process.id"  >
+                      {{process.name}}
+                    </mat-option>
+                  </mat-select>
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <mat-label>Business Sub Process</mat-label>
+                <mat-select formControlName="subProcId">
+                    <mat-option *ngFor="let subProcess of businessSubProcess" [value]="subProcess.id">
+                      {{subProcess.name}}
+                    </mat-option>
+                  </mat-select>
+            </mat-form-field>
+            <!-- <mat-form-field class="w-full">
+                <mat-label>System Type</mat-label>
+                <mat-select formControlName="systemType">
+                    <mat-option *ngFor="let systemType of systemTypes" [value]="systemType.name">
+                      {{systemType.name}}
+                    </mat-option>
+                  </mat-select>
+            </mat-form-field> -->
+            <mat-form-field class="w-full">
+                <mat-label>GDPR</mat-label>
+                <mat-select formControlName="gdpr">
+                    <mat-option value="false">No</mat-option>
+                    <mat-option value="true">Yes</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-dialog-content>
+        <p class="border border-solid border-t-3 border-slate-300 w-full"></p>
+
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close="" color="warn">Cancel</button>
+            <button mat-button [disabled]="!form.valid" color="primary" (click)="rule?updateRule() : createRule()">Save</button>
+        </mat-dialog-actions>
+    </form>
+</div>

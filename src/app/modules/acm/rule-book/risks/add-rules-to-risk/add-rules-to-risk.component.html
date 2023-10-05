@@ -1,0 +1,67 @@
+<div class="w-full p-5 overflow-y-auto">
+    <div class="header">
+        <p class="text-[20px]">{{title}}</p>
+        <p class="border border-solid border-3 border-gray-200 my-3"></p>
+    </div>
+    <div class="flex py-3">
+        <p class="text-[18px]">Available Rules</p>
+        <div class="flex ml-auto">
+            <button pButton type="button" label="Add Selected" class="p-button-rounded bg-blue-500 p-button-sm" (click)="addSelected()"></button>
+            <button pButton type="button " label="Add All" class="p-button-rounded bg-blue-500 ml-1.5 p-button-sm" (click)="addAll()"></button>
+        </div>
+    </div>
+    <div class="overflow-y-auto h-[300px] max-h-[300px]">
+        <app-table
+            [cols]="mainCols"
+            [data]="availableData"
+            [loading]="loading"
+            [scrollHeight]="scrollHeight"
+            [selectionMode]="selectionMode"
+            [startingDisplayAmout]="startingDisplayAmout"
+            [rowsPerPageOptions]="rowsPerPageOptions"
+            (rowSelected)="onAvailableRowSelected($event)"
+            (rowUnSelected)="onAvailableRowUnSelected($event)"
+        ></app-table> 
+
+    </div>
+    <p class="border border-solid border-3 border-gray-200 my-3"></p>
+    <div class="flex py-3">
+        <p class="text-[18px]">Selected Rules</p>
+        <div class="flex ml-auto">
+            <button pButton type="button" label="Remove Selected" class="p-button-rounded bg-blue-500 p-button-sm" (click)="removeSelected()"></button>
+            <button pButton type="button " label="Remove All" class="p-button-rounded bg-blue-500 ml-1.5 p-button-sm" (click)="removeAll()"></button>
+        </div>
+    </div>
+    <div class="overflow-y-auto h-[250px] max-h-[250px]">
+        <app-table
+            [cols]="mainCols"
+            [data]="selectedData"
+            [loading]="loading"
+            [scrollHeight]="scrollHeight"
+            [selectCheckBox]="true"
+            [selectionMode]="selectionMode"
+            [startingDisplayAmout]="startingDisplayAmout"
+            [rowsPerPageOptions]="rowsPerPageOptions"
+            (rowSelected)="onSelectedRowSelected($event)"
+            (rowUnSelected)="onSelectedRowUnSelected($event)"
+        ></app-table> 
+    </div>
+    <div>
+        <mat-form-field class="w-[30%]">
+            <mat-label>Risk Condition</mat-label>
+            <mat-select [(ngModel)]="selectedValue" (selectionChange)="onSelect($event)">
+                <mat-option *ngFor="let type of riskCondition" [value]="type.id">
+                    {{type.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="w-full">
+            <textarea matInput type="text" [(ngModel)]="rcSelection" [disabled]="disabled" placeholder="Risk Condition....." ></textarea>
+        </mat-form-field>
+    </div>
+    <p class="border border-solid border-3 border-gray-200 my-3"></p>
+    <div class="flex justify-end">
+        <button mat-button mat-dialog-close="" color="warn">Cancel</button>
+        <button mat-button (click)="save()">Save</button>
+    </div>
+</div>

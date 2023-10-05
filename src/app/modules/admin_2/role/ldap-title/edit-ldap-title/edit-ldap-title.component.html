@@ -1,0 +1,33 @@
+<div class="flex-auto p-5">
+    <h2 mat-dialog-title>Manage Ldap Title</h2>
+    <ng-container *ngIf="form$ | async ; else loading">
+        <form class="mt-8" [formGroup]="form">
+            <mat-dialog-content class="h-120">
+                <div class="flex flex-col  flex-auto">
+                    <mat-form-field>
+                        <mat-label>Ldap Title</mat-label>
+                        <input matInput type="text" formControlName="ldapTitle"/>
+                        <mat-error>
+                            <form-error [form]="form" name="ldapTitle"></form-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="flex flex-col mb-5 w-auto">
+                        <label>Select Roles</label>
+                        <p-multiSelect [options]="roles" formControlName="roles"
+                                       optionLabel="roleName" optionValue="id"
+                                       selectedItemsLabel="{0} columns selected" [style]="{width: '100%'}"
+                                       placeholder="Select Roles">
+
+                        </p-multiSelect>
+                    </div>
+
+                </div>
+            </mat-dialog-content>
+            <mat-dialog-actions align="end">
+                <button mat-button mat-dialog-close="">Cancel</button>
+                <button mat-button [disabled]="!form.valid" (click)="update()">Save</button>
+            </mat-dialog-actions>
+        </form>
+    </ng-container>
+    <ng-template #loading>Please wait...</ng-template>
+</div>

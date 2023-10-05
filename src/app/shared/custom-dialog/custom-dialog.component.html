@@ -1,0 +1,13 @@
+<div class="w-full md:w-auto max-w-full">
+    <div class="flex  justify-between">
+        <h2 mat-dialog-title class="flex">{{header}}</h2>
+        <div class="flex flex-auto justify-end">
+            <ng-content select="[actions]"></ng-content>
+            <button mat-button mat-flat-button mat-dialog-close="" *ngIf="showCloseButton">Close</button>
+        </div>
+    </div>
+    <mat-dialog-content class="mat-typography overflow-y-hidden h-[600px] max-h-[600px]">
+        <ng-content select="[body]"></ng-content>
+    </mat-dialog-content>
+
+</div>

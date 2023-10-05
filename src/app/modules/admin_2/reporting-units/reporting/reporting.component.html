@@ -1,0 +1,123 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <div class="flex-auto p-6 sm:p-10 ">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full min-w-0 ng-star-inserted" style="">
+            <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+
+                <div class="text-lg font-medium tracking-tight leading-6 truncate">User Login Events for past 10
+                    days
+                </div>
+
+                <div class="flex flex-col items-center mt-2">
+                    <p-chart type="bar" [data]="dailyEvents" [options]="dailyEventOptions"></p-chart>
+                </div>
+            </div>
+
+            <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+
+                <div class=" text-lg font-medium tracking-tight text-center leading-6 truncate">No of Users Per RU</div>
+                <div class="flex flex-col items-center mt-2">
+                    <p-chart type="doughnut" [data]="chartUsersPerRUMap" [options]="chartOptions"
+                             [style]="{'width': '60%'}"></p-chart>
+                </div>
+            </div>
+            <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+
+                <div class=" text-lg font-medium tracking-tight text-center leading-6 truncate">No of Systems Per RU
+                </div>
+                <div class="flex flex-col items-center mt-2">
+                    <p-chart type="doughnut" [data]="chartSystemsPerRUMap" [options]="chartOptions"
+                             [style]="{'width': '60%'}"></p-chart>
+                </div>
+            </div>
+
+            <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+
+                <div class=" text-lg font-medium tracking-tight text-center leading-6 truncate">No of Active/Disabled
+                    Users
+                </div>
+                <div class="flex flex-col items-center mt-2">
+                    <p-chart type="doughnut" [data]="chartActivePassiveUsers" [options]="chartOptions"
+                             [style]="{'width': '60%'}"></p-chart>
+                </div>
+            </div>
+
+            <div class="sm:col-span-2 md:col-span-4 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                <div class="grid grid-cols-1  grid-flow-row gap-6 w-full mt-8 sm:mt-4">
+                    <div class="text-xl font-medium tracking-tight leading-6 truncate">Reporting Units</div>
+                    <div class="flex flex-col flex-auto">
+                        <p-table #dt2 [value]="reportingUnits" [lazy]="true" (onLazyLoad)="loadData($event)"
+                                 dataKey="name"
+                                 [paginator]="true"
+                                 [scrollable]="true"
+                                 [style]="{width:'100%'}"
+                                 scrollDirection="horizontal"
+                                 selectionMode="single" [(selection)]="selectedRow"
+                                 [globalFilterFields]="filterColumns"
+                                 [rows]="10" [totalRecords]="totalRecords" [loading]="loading">
+                            <ng-template pTemplate="caption">
+                                <div class="flex" style="justify-content: space-between">
+                                    <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+                                                   selectedItemsLabel="{0} columns selected"
+                                                   [style]="{minWidth: '200px'}"
+                                                   placeholder="Choose Columns">
+
+                                    </p-multiSelect>
+                                    <button type="button"
+                                            class="ml-auto  p-button-rounded p-button-sm"
+                                            pButton icon="pi pi-angle-double-down" label="Actions"
+                                            (click)="menu.toggle($event)"></button>
+                                    <p-menu appendTo="body" #menu [popup]="true" [model]="menuItems"></p-menu>
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="header">
+
+                                <tr>
+                                    <th *ngFor="let col of selectedColumns" pSortableColumn="{{col.field}}"
+                                        [ngStyle]="{'width': (col && col.width ? col.width + 'px' : 'auto')}">
+                                        {{col.header}}
+                                        <p-sortIcon field="{{col.field}}"></p-sortIcon>
+
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-item>
+                                <tr [pSelectableRow]="item">
+                                    <ng-container *ngFor="let col of selectedColumns">
+                                        <td *ngIf="col.type === 'boolean'"
+                                            [ngStyle]="{'width': (col && col.width ? col.width + 'px' : 'auto')}"
+                                            (click)="col.onClick(item)">
+                                            <i class="pi"
+                                               [ngClass]="{'true-icon pi-check-circle': item[col.field],
+                                'false-icon pi-times-circle': !item[col.field]}">
+                                            </i>
+                                        </td>
+                                        <td class="truncate" *ngIf="col.type === 'text' && col.subField"
+                                            (click)="col.onClick(item)"
+                                            [ngStyle]="{'width': (col && col.width ? col.width + 'px' : 'auto'),
+                            'color': (col && col.color ? col.color   : 'inherent')}">
+                                            <i *ngIf="col.iconClass" class="pi {{col.iconClass}}"></i>
+                                            {{item[col.field][col.subField]}}
+                                        </td>
+                                        <td class="truncate" *ngIf="col.type === 'text' &&  !col.subField "
+                                            [ngStyle]="{'width': (col && col.width ? col.width + 'px' : 'auto'),
+                            'color': (col && col.color ? col.color   : 'inherent')}"
+                                            (click)="col.onClick(item)">
+                                            <i *ngIf="col.iconClass" class="pi {{col.iconClass}}"></i>
+                                            {{ item[col.field]}}
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>

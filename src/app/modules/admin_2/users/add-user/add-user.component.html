@@ -1,0 +1,58 @@
+<div class="flex-auto ">
+    <h2 mat-dialog-title>Create or Update User</h2>
+    <form class="mt-8" [formGroup]="form">
+        <mat-dialog-content class="mat-typography">
+            <mat-form-field class="w-full">
+                <mat-label>Username</mat-label>
+                <input matInput type="text" formControlName="username"/>
+            </mat-form-field>
+
+            <mat-form-field class="w-full">
+                <mat-label>First Name</mat-label>
+                <input matInput type="text" formControlName="firstName"/>
+                <mat-error>
+                    <form-error [form]="form" name="firstName"></form-error>
+                </mat-error>
+
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <mat-label>Last Name</mat-label>
+                <input matInput type="text" formControlName="lastName" placeholder="Last Name"/>
+                <mat-error>
+                    <form-error [form]="form" name="lastName"></form-error>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <mat-label>Email</mat-label>
+                <input matInput type="text" formControlName="email" placeholder="Email"/>
+                <mat-error>
+                    <form-error [form]="form" name="email"></form-error>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-full" *ngIf="user === null">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password" placeholder="Password"/>
+                <mat-error>
+                    <form-error [form]="form" name="password"></form-error>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="w-full" *ngIf="user === null">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput type="password" formControlName="confirmPassword" placeholder="Confirm Password"/>
+                <mat-error>
+                    <form-error-confirm-password [form]="form" name="confirmPassword" password="password">
+                    </form-error-confirm-password>
+                </mat-error>
+            </mat-form-field>
+
+
+            <mat-checkbox [color]="'primary'" formControlName="enabled">Enabled</mat-checkbox>
+
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close="">Cancel</button>
+            <button mat-button [disabled]="!form.valid" (click)="user?updateUser(): createUser()">Save</button>
+        </mat-dialog-actions>
+
+    </form>
+</div>

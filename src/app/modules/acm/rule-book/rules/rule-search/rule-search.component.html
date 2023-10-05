@@ -1,0 +1,67 @@
+<div class="p-3 w-full">
+  <div class="flex justify-between">
+    <p class="text-[20px] mx-2 my-auto">Search...</p>
+    <button mat-button mat-icon-button mat-dialog-close="">
+      <i class="pi pi-times"></i>
+    </button>
+  </div>
+  <p class="border border-gray-200 w-full mt-2"></p>
+  <form class="mt-5" [formGroup]="form">
+    <mat-dialog-content class="mat-typography">
+      <div class="flex mt-2">
+        <mat-form-field class="">
+          <mat-select formControlName="option">
+            <mat-option *ngFor="let item of options" [value]="item.id">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button
+          pButton
+          type="button"
+          icon="pi pi-plus"
+          class="mx-2 h-[48px]"
+          (click)="addForm()"
+        ></button>
+      </div>
+      <div formArrayName="addForms">
+        <div
+          *ngFor="let formRule of formRules; let i=index"
+          class="flex w-full"
+        >
+          <div formGroupName="{{i}}" class="w-full flex">
+            <mat-form-field class="mr-2 w-[40%]">
+              <mat-select formControlName="dataHeader">
+                <mat-option *ngFor="let item of dataHeaders" [value]="item.id">
+                  {{item.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="mr-2 w-[30%]">
+              <mat-select formControlName="condition">
+                <mat-option *ngFor="let item of conditions" [value]="item.id">
+                  {{item.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="mr-2">
+              <input matInput type="text" formControlName="searchValue" />
+            </mat-form-field>
+            <button
+              pButton
+              type="button"
+              icon="pi pi-minus"
+              class="ml-2 h-[48px] min-w-[50px]"
+              (click)="removeForm(i)"
+            ></button>
+          </div>
+        </div>
+      </div>
+      <p class="border border-gray-200 w-full my-2"></p>
+      <div class="flex justify-between mb-2">
+        <button pButton type="button" label="Reset" (click)="reset()"></button>
+        <button pButton type="button" label="Find" (click)="find()"></button>
+      </div>
+    </mat-dialog-content>
+  </form>
+</div>

@@ -1,0 +1,21 @@
+<div class="flex p-3  w-max">
+    <mat-tab-group>
+        <mat-tab label="LDAP Configuration">
+            <ldap-configuration></ldap-configuration>
+        </mat-tab>
+        <mat-tab label="Logs">
+            <ldap-log></ldap-log>
+        </mat-tab>
+
+
+    </mat-tab-group>
+    <div class="relative z-10">
+        <div class="absolute  right-6">
+            <button type="button"
+                    class="ml-auto  p-button-rounded p-button-sm"
+                    pButton icon="pi pi-angle-double-down" label="Actions"
+                    (click)="menu.toggle($event)"></button>
+            <p-menu appendTo="body" #menu [popup]="true" [model]="menuItems"></p-menu>
+        </div>
+    </div>
+</div>

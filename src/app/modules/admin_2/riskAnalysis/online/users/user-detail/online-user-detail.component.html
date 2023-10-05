@@ -1,0 +1,15 @@
+<custom-dialog header="User Detail">
+    <div body>
+        <div class="flex flex-auto flex-col">
+            <div *ngIf="user" class="pb-3">
+                <div class="flex flex-col justify-evenly">
+                    <span>User ID: {{user.userName.bname}}</span>
+                    <span>Full Name: {{user.userName.firstName + ' ' + user.userName.lastName}}</span>
+                    <span>User Type: {{user.userType}}</span>
+                </div>
+            </div>
+            <custom-ps-table [items]="items" [primaryKey]="primaryKey" [columns]="cols"
+                             header="Role List"></custom-ps-table>
+        </div>
+    </div>
+</custom-dialog>

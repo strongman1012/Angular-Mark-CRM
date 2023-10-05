@@ -1,0 +1,133 @@
+<div class="w-full md:w-auto max-w-full">
+    <div class="flex  justify-between">
+        <h2 mat-dialog-title class="flex">{{title}}</h2>
+        <div class="flex">
+            <button mat-button mat-flat-button mat-dialog-close="">Close</button>
+        </div>
+    </div>
+    <ng-container *ngIf="form$ | async ; else loading">
+        <form class="mt-8" [formGroup]="firstFormGroup">
+
+            <div class="flex flex-col col-span-2 flex-auto p-6">
+
+                <mat-form-field>
+                    <mat-label>LDAP Configuration Name</mat-label>
+                    <input matInput type="text" formControlName="name"/>
+                    <mat-error>
+                        <form-error [form]="firstFormGroup" name="name"></form-error>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Authentication Type</mat-label>
+                    <mat-select
+                            [formControlName]="'authenticationType'"
+                            [placeholder]="'Please select...'">
+
+                        <mat-option *ngFor="let item of authenticationTypes"
+                                    [value]="item.value">{{item.text}}</mat-option>
+
+                    </mat-select>
+                    <mat-error>
+                        <form-error [form]="firstFormGroup" name="authenticationType"></form-error>
+                    </mat-error>
+                </mat-form-field>
+                <div class="flex flex-row items-center gap-4">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Hostname</mat-label>
+                        <input matInput type="text" formControlName="hostname"/>
+                        <mat-error>
+                            <form-error [form]="firstFormGroup" name="hostname"></form-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-20">
+                        <mat-label>Port</mat-label>
+                        <input matInput type="text" formControlName="port"/>
+                        <mat-error>
+                            <form-error [form]="firstFormGroup" name="port"></form-error>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-checkbox formControlName="ssl" value="true" labelPosition="after">Use SSL</mat-checkbox>
+
+                </div>
+                <div class="flex flex-row items-center gap-4">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Username</mat-label>
+                        <input matInput type="text" formControlName="username"/>
+                        <mat-error>
+                            <form-error [form]="firstFormGroup" name="username"></form-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="flex-1">
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" formControlName="password"/>
+                        <mat-error>
+                            <form-error [form]="firstFormGroup" name="password"></form-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <mat-form-field>
+                    <mat-label>Base DN</mat-label>
+                    <input matInput type="text" formControlName="baseDn"/>
+                    <mat-error>
+                        <form-error [form]="firstFormGroup" name="baseDn"></form-error>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Search Filter</mat-label>
+                    <input matInput type="text" formControlName="searchFilter"/>
+                    <mat-error>
+                        <form-error [form]="firstFormGroup" name="searchFilter"></form-error>
+                    </mat-error>
+                </mat-form-field>
+
+
+                <mat-form-field>
+                    <mat-label>Reporting Units</mat-label>
+                    <mat-select
+                            [formControlName]="'reportingUnitIds'"
+                            [placeholder]="'Please select...'" multiple>
+
+                        <mat-option *ngFor="let item of reportingUnits"
+                                    [value]="item[0]">{{item[1]}}
+                        </mat-option>
+
+                    </mat-select>
+                </mat-form-field>
+                <div class="flex flex-row items-center gap-4">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Priority</mat-label>
+                        <input matInput type="text" formControlName="priority"/>
+                        <mat-error>
+                            <form-error [form]="firstFormGroup" name="priority"></form-error>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-checkbox formControlName="active" value="true" labelPosition="after"
+                    >Active configuration
+                    </mat-checkbox>
+
+                </div>
+                <div class="flex flex-row items-center gap-4" *ngIf="testValue !==null">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Test Name</mat-label>
+                        <input matInput type="text" #testName (keyup)="testNameChanged()"/>
+
+                    </mat-form-field>
+                    <button type="button"
+                            color="warn" mat-flat-button mat-button
+                            (click)="testConnection()"
+                            [disabled]="testValue === null || testValue ===''">Test Connection
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class=" flex justify-end pr-6">
+            <button class="" color="primary" mat-flat-button mat-button (click)="storeOrUpdate()"
+                    [disabled]="!firstFormGroup.valid">Save
+            </button>
+        </div>
+    </ng-container>
+    <ng-template #loading>Please wait...</ng-template>
+</div>

@@ -1,0 +1,61 @@
+<p-table #dt2
+         [value]="items" [dataKey]="primaryKey" [lazy]="true" (onLazyLoad)="callBack($event)"
+         (onHeaderCheckboxToggle)="onTableHeaderCheckboxToggle($event)"
+         [paginator]="true"
+         [scrollable]="true"
+         [style]="{width:'100%'}"
+         scrollDirection="horizontal"
+         [selectionMode]="selectionMode" (onRowSelect)="onRowSelect($event)"
+         (onRowUnselect)="onRowUnselect($event)"
+         [rows]="10" [totalRecords]="totalRecords" [loading]="isLoading">
+
+    <ng-template pTemplate="caption" *ngIf="header">
+        <h2 mat-dialog-title>{{header}}</h2>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th>
+
+            </th>
+            <th *ngFor="let col of columns" pSortableColumn="{{col.name}}" >
+                {{col.header}}
+                <p-sortIcon *ngIf="sortable" field="{{col.name}}"></p-sortIcon>
+                <p-columnFilter type="{{col.type}}" field="{{col.name}}" display="menu"
+                                *ngIf="col.filterEnabled === undefined || col.filterEnabled === 'true' "></p-columnFilter>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+        <tr>
+
+            <ng-container *ngFor="let col of columns; let index = index">
+                <td><p-tableCheckbox [value]="item" *ngIf="index === 0" ></p-tableCheckbox></td>
+                <td *ngIf="col.type === 'boolean'" (click)="col.onClick?.(item)"
+                    [ngStyle]="{'width': (col && col.width ? col.width + 'px' : 'auto'),
+                            'color': (col && col.color ? col.color   : 'inherent')}">
+
+                    <i class="pi"
+                       [ngClass]="{'true-icon pi-check-circle': item[col.name]==='true',
+                                'false-icon pi-times-circle': item[col.name]==='false'}">
+                    </i>
+                </td>
+                <td class="truncate" *ngIf="col.type === 'text' && col.name.includes('.')" (click)="col.onClick?.(item)"
+                    [ngStyle]="{'width': (col && col.width ? col.width + 'px' : 'auto'),
+                            'color': (col && col.color ? col.color   : 'inherent')}">
+
+
+                    <i *ngIf="col.iconClass" class="pi {{col.iconClass}}"></i>
+
+                    {{item[col.name.split('.')[0]][col.name.split('.')[1]]}}
+                </td>
+                <td class="truncate" *ngIf="col.type === 'text' &&  !col.name.includes('.')"
+                    (click)="col.onClick?.(item)" [ngStyle]="{'width': (col && col.width ? col.width + 'px' : 'auto'),
+                            'color': (col && col.color ? col.color   : 'inherent')}">
+                    <i *ngIf="col.iconClass" class="pi {{col.iconClass}}"></i>  {{ item[col.name]}}
+                </td>
+            </ng-container>
+        </tr>
+
+    </ng-template>
+</p-table>

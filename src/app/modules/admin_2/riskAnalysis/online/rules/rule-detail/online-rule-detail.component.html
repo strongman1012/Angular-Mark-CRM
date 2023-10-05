@@ -1,0 +1,13 @@
+<custom-dialog header="Rule Detail">
+    <div body>
+        <div class=" flex flex-auto flex-col">
+            <div *ngIf="rule" class="pb-3">
+                <div class="flex flex-col justify-evenly mb-5">
+                    <span>Rule Name: {{rule.ruleName}}</span>
+                    <span>Description: {{rule.ruleDescription}}</span>
+                </div>
+            </div>
+            <custom-ps-table [items]="items" [primaryKey]="primaryKey" [columns]="cols"></custom-ps-table>
+        </div>
+    </div>
+</custom-dialog>

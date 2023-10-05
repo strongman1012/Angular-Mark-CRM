@@ -1,0 +1,60 @@
+<p-table #dt2 [value]="items" [dataKey]="primaryKey" styleClass="p-datatable-gridlines"
+    (onRowSelect)="onRowSelect($event)" [selectionMode]="selectionMode" (onRowUnselect)="onRowUnselect($event)"
+    [rows]="startingDisplayAmout" [rowsPerPageOptions]="rowsPerPageOptions" [paginator]="true" [scrollable]="true"
+    scrollHeight="300px">
+    <ng-template *ngIf="displaySearch" pTemplate="caption">
+        <div class="flex justify-end">
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                    placeholder="Search users..." class="p-inputtext p-component p-element" />
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="caption" *ngIf="header">
+        <h2 mat-dialog-title>{{header}}</h2>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th *ngFor="let col of columns" pSortableColumn="{{col.name}}">
+                {{col.header}}
+                <p-sortIcon *ngIf="col.type !=='button'" field="{{col.name}}"></p-sortIcon>
+                <p-columnFilter type="{{col.type}}" field="{{col.name}}" display="menu"
+                    *ngIf="filterEnabled === 'true' && col.type !=='button'"></p-columnFilter>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+        <tr [pSelectableRow]="item">
+            <ng-container *ngFor="let col of columns">
+                <td *ngIf="col.type === 'boolean'" (click)="col.onClick?.(item)" [ngStyle]="{'width': (col && col.width ? col.width + 'px' : 'auto'),
+                            'color': (col && col.color ? col.color   : 'inherent')}">
+                    <i class="pi" [ngClass]="{'true-icon pi-check-circle': item[col.name]==='true',
+                                'false-icon pi-times-circle': item[col.name]==='false'}">
+                    </i>
+                </td>
+                <td class="truncate" *ngIf="col.type === 'text' && col?.name.includes('.')" (click)="col.onClick?.(item)"
+                    [ngStyle]="{'width': (col && col.width ? col.width + 'px' : 'auto'),
+                            'color': (col && col.color ? col.color   : 'inherent')}">
+
+                    <i *ngIf="col.iconClass" class="pi {{col.iconClass}}"></i>
+
+                    {{item[col?.name.split('.')[0]][col?.name.split('.')[1]]}}
+                </td>
+                <td class="truncate" *ngIf="col.type === 'text' &&  !col.name.includes('.')"
+                    (click)="col.onClick?.(item)" [ngStyle]="{'width': (col && col.width ? col.width + 'px' : 'auto'),
+                            'color': (col && col.color ? col.color   : 'inherent')}">
+                    <i *ngIf="col.iconClass" class="pi {{col.iconClass}}"></i> {{ item[col.name]}}
+                </td>
+                <td class="truncate" *ngIf="col.type === 'button'" [ngStyle]="{'width': (col && col.width ? col.width + 'px' : 'auto'),
+                        'color': (col && col.color ? col.color   : 'inherent')}">
+                    <button pButton type="button" class="pi {{col.class}}"><i *ngIf="col.iconClass"
+                            class="pi {{col.iconClass}}"></i> {{ item[col.name]}}</button>
+
+                </td>
+            </ng-container>
+        </tr>
+
+    </ng-template>
+</p-table>

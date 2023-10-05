@@ -1,0 +1,83 @@
+<div class="px-3 w-full">
+    <p-card header="Variants: Rules" class="w-full">
+        <p class="border boder-b-3 border-gray-300"></p>
+        <div class="grid grid-cols-6 gap-3 mt-5">
+            <div class="col-span-2">
+                <div class="subHeader mt-3">
+                    <p class="text-[20px]">Details</p>
+                    <p class="border border-b-1 border-gray-300 mt-3"></p>
+                </div>
+                <div class="block mt-5">
+                    <form [formGroup]="form">
+                        <div class="flex">
+                            <mat-form-field class="w-full">
+                                <mat-label>Description</mat-label>
+                                <input matInput type="text" formControlName="description" id="description"/>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex">
+                            <mat-form-field class="w-full">
+                                <mat-label>System</mat-label>
+                                <mat-select formControlName="system">
+                                    <mat-option *ngFor="let type of systems" [value]="type.id">
+                                      {{type.destinationName}}
+                                    </mat-option>
+                                  </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <mat-dialog-actions align="end">
+                            <button mat-raised-button color="primary" class="mr-2 text-white" (click)="onClickNew()">New</button>
+                            <button mat-raised-button color="primary" class="text-white" (click)="onClickSave()">Save</button>
+                        </mat-dialog-actions>
+                    </form>
+                       
+                </div>
+                         
+                </div>
+            <div class="col-span-4">
+                <div class="subHeader">
+                    <div class="flex justify-between">
+                        <p class="text-[20px] mt-auto">Existing</p>
+                        <button mat-raised-button color="primary" class="text-white" (click)="deleteFavorite()">Delete</button>
+                    </div>
+                    <p class="border border-b-1 border-gray-300 mt-3"></p>
+                    <div class="w-full border border-3 h-[250px] max-h-[250px] mt-8 overflow-auto flex flex-wrap">
+                        <div *ngFor="let item of favorites" class="p-2">
+                            <button mat-raised-button class="p-3 focus:bg-blue-400" (click)="onClickFavorite(item)">{{item.description}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </p-card>
+    <div class="w-full mt-5">
+        <app-table
+          [title]="tableOneTitle"
+          [cols]="mainCols"
+          [data]="data"
+          [selectCheckBox]="true"
+          [selectedItems]="selectedRule"
+          [totalRecords]="totalRecords"
+          [loading]="loading"
+          [selectionMode]="selectionMode"
+          [startingDisplayAmout]="startingDisplayAmout"
+          [rowsPerPageOptions]="rowsPerPageOptions"
+          [paginator]="true"
+          (rowSelected)="onRowSelected($event)"
+          (rowUnSelected)="onRowUnSelected($event)"
+        ></app-table>
+        <app-table
+          class="pb-5"
+          [title]="tableTwoTitle"
+          [cols]="subCols"
+          [selectionMode]="selectionMode1"
+          [data]="displaySelectionData"
+          [loading]="loading"
+          [startingDisplayAmout]="startingDisplayAmout"
+          [rowsPerPageOptions]="rowsPerPageOptions"
+          [paginator]="true"
+          [disableSortable]="true"
+        ></app-table>
+      </div>
+</div>

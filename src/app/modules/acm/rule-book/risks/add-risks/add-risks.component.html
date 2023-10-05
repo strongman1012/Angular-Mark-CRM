@@ -1,0 +1,71 @@
+<div class="flex-auto">
+    <h2 mat-dialog-title>Add Risk</h2>
+    <p class="border border-solid border-t-3 border-slate-300 w-full"></p>
+    <form class="mt-8" [formGroup]="form">
+        <mat-dialog-content class="mat-typography">
+            <div class="flex">
+                <mat-form-field class="w-full">
+                    <mat-label>Risk ID</mat-label>
+                    <input matInput type="text" formControlName="name" placeholder="Enter Risk Name..."/>
+                </mat-form-field>
+                <!-- <mat-form-field class="w-full">
+                    <mat-label>System Type</mat-label>
+                    <mat-select formControlName="systemType">
+                        <mat-option *ngFor="let type of systemTypes" [value]="type.id">
+                          {{type.name}}
+                        </mat-option>
+                      </mat-select>
+                </mat-form-field> -->
+            </div>
+            <mat-form-field class="w-full">
+                <mat-label>Risk Description</mat-label>
+                <input matInput type="text" formControlName="riskDescription" placeholder="Enter Risk Description..." />
+            </mat-form-field>
+            <div class="flex">
+                <mat-form-field class="w-full pr-3">
+                    <mat-label>Risk Type</mat-label>
+                    <mat-select formControlName="riskTypeId">
+                        <mat-option *ngFor="let type of riskTypes" [value]="type.id">
+                          {{type.name}}
+                        </mat-option>
+                      </mat-select>
+                </mat-form-field>
+                <mat-form-field class="w-full pl-3">
+                    <mat-label>Is Cross System ?</mat-label>
+                    <mat-select formControlName="crossSystem">
+                        <mat-option value="false">No</mat-option>
+                        <mat-option value="true">Yes</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="flex">
+                <mat-form-field class="w-full pr-3">
+                    <mat-label>Business Process</mat-label>
+                    <mat-select formControlName="businessProcessId" (selectionChange)="onSelect($event)">
+                        <mat-option *ngFor="let process of businessProcess" [value]="process.id"  >
+                          {{process.name}}
+                        </mat-option>
+                      </mat-select>
+                </mat-form-field>
+                <mat-form-field class="w-full pl-3">
+                    <mat-label>Business Sub Process</mat-label>
+                    <mat-select formControlName="subProcId">
+                        <mat-option *ngFor="let subProcess of businessSubProcess" [value]="subProcess.id">
+                          {{subProcess.name}}
+                        </mat-option>
+                      </mat-select>
+                </mat-form-field>
+            </div>
+            <mat-form-field class="w-full">
+                <mat-label>Detail Description</mat-label>
+                <textarea matInput type="text" formControlName="detailDesc" placeholder="Detail Description..."></textarea>
+            </mat-form-field>
+        </mat-dialog-content>
+        <p class="border border-solid border-t-3 border-slate-300 w-full"></p>
+
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close="" color="warn">Cancel</button>
+            <button mat-button [disabled]="!form.valid" color="primary" (click)="risk?updateRisk() : createRisk()">Save</button>
+        </mat-dialog-actions>
+    </form>
+</div>

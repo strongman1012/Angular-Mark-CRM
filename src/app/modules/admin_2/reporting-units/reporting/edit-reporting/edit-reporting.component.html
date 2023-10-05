@@ -1,0 +1,84 @@
+<div class="flex-auto ">
+    <div class="flex  justify-between">
+        <h2 mat-dialog-title class="flex">{{title}}</h2>
+        <div class="flex">
+            <button mat-button mat-flat-button mat-dialog-close="">Close</button>
+        </div>
+    </div>
+    <ng-container *ngIf="form$ | async ; else loading">
+        <mat-dialog-content class="mat-typography">
+            <form class="mt-8" [formGroup]="form">
+
+                <div class="flex flex-col col-span-2 flex-auto p-6">
+                    <mat-form-field>
+                        <mat-label>ReportingUnit</mat-label>
+                        <input matInput type="text" formControlName="name"/>
+                        <mat-error>
+                            <form-error [form]="form" name="name"></form-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="flex flex-col mb-5">
+                        <label>Select Sap Systems</label>
+                        <p-pickList [source]="sapSystems" [target]="targetSapSystems" sourceHeader="Available"
+                                    targetHeader="Selected"
+                                    [dragdrop]="true"
+                                    [responsive]="true" [sourceStyle]="{'height':'10rem'}"
+                                    [targetStyle]="{'height':'10rem'}" filterBy="destinationName"
+                                    sourceFilterPlaceholder="Search by name"
+                                    targetFilterPlaceholder="Search by name">
+                            <ng-template let-reportingUnit pTemplate="item">
+                                <div class="product-item">
+                                    <div class="product-list-detail">
+                                        <span class="mb-2">{{reportingUnit.destinationName}}</span>
+
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </p-pickList>
+                    </div>
+                    <mat-form-field>
+                        <mat-label>Db Connection</mat-label>
+                        <mat-select formControlName="dbConnectionId">
+                            <mat-option [value]="">
+                                Please Select
+                            </mat-option>
+                            <mat-option *ngFor="let item of dbConnections" [value]="item.id">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>
+                            <form-error [form]="form" name="dbConnectionId"></form-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Notification Scope</mat-label>
+                        <mat-select formControlName="notificationScope">
+                            <mat-option *ngFor="let yesNo of yesNoFields" [value]="yesNo.value">
+                                {{yesNo.text}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>
+                            <form-error [form]="form" name="notificationScope"></form-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Expired SOD Jobs Deletion</mat-label>
+                        <mat-select formControlName="expiredSODJobsDeletion">
+                            <mat-option *ngFor="let yesNo of yesNoFields" [value]="yesNo.value">
+                                {{yesNo.text}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>
+                            <form-error [form]="form" name="expiredSODJobsDeletion"></form-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </form>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button [disabled]="!form.valid" (click)="update()">Save Changes</button>
+
+        </mat-dialog-actions>
+    </ng-container>
+    <ng-template #loading>Please wait...</ng-template>
+</div>

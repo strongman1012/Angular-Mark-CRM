@@ -1,0 +1,42 @@
+<div class="card flex justify-start p-5">
+    <p-card>
+        <div class="grid grid-cols-6 gap-3">
+            <div class="col-span-2 border-r-2 border-gray-400">
+                <div class="pr-3 py-3">
+                    <div class="flex justify-center">
+                        <span class="blue-circle">
+                            <i class="pi pi-cloud-upload text-[45px] text-white"></i>
+                        </span>
+                    </div>
+                    <p class="text-[20px] mt-10 text-center">Import</p>
+                    <ul class="mt-8 pl-3">
+                        <li>Refer to instructions before import process</li>
+                        <li>Be cautious while selecting the files.</li>
+                        <li>Make sure there are no duplicate records</li>
+                        <li>It takes a while to upload records, please be patient</li>
+                    </ul>
+                    <div class="mt-10">
+                        <p-button label="Risk Template" class="primary grid w-full" (click)="onClickRiskTemplate()"></p-button>
+                        <p-button label="Risk Rule Template" class="primary grid w-full mt-3" (click)="onClickRiskRuleTemplate()"></p-button>
+                    </div>  
+                </div>
+            </div>
+            <div class="col-span-4">
+                <div class="pl-3 mt-5">
+                    <p class="text-[20px]">Risks Imports</p>
+                    <p class="border border-solid border-3 border-gray-200 my-3"></p>
+                </div>
+                <div class="mt-10 text-center">
+                    <p-button label="Upload Risks" styleClass="p-button-rounded" class="primary block mx-auto" (click)="onUploadRiskClick()">
+                        <input type="file" #fileInputRisk (change)="onFileRiskSelected($event)" style="display: none;" id="fileInputRisk">
+                    </p-button>
+                    <p-button label="Upload Risk-Rules" styleClass="p-button-rounded" class="primary block mx-auto mt-3" (click)="onUploadRiskRulesClick()">
+                        <input type="file" #fileInputRiskRules (change)="onFileRiskRulesSelected($event)" style="display: none;" id="fileInputRiskRules">
+                    </p-button>
+                    <div [innerHTML]="uploadMessage"></div>
+                </div>
+            </div>
+        </div>
+    </p-card>
+   
+</div>

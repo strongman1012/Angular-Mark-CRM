@@ -1,0 +1,24 @@
+<div class="flex flex-auto min-w-0 items-center">
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10 items-center">
+
+        <!-- CONTENT GOES HERE -->
+        <div class="grid items-center">
+            <div class="container">
+                <div class="grid grid-cols-3 gap-4 text-brand text-brand-primary">
+                    <div class="nav_item" *ngFor="let item of navs">
+                        <a href="{{item.nav_link}}"
+                           class="nav_link">
+                            <i class="icon {{item.nav_icon}} mb-6 nav_item-hover:text-white"></i>
+                            <h1>{{item.nav_label}}</h1>
+                        </a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

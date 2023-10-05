@@ -1,0 +1,134 @@
+<div class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0">
+    <div class="md:flex md:items-center md:justify-end w-full sm:w-auto md:h-full md:w-1/2 py-8 px-4 sm:p-12 md:p-16 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none sm:bg-card">
+        <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
+            <!-- Logo -->
+            <div class="w-12">
+                <img src="assets/images/logo/logo.png">
+            </div>
+
+            <!-- Title -->
+            <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight">Sign in</div>
+            
+
+            <!-- Alert -->
+            <fuse-alert
+                    class="mt-8 -mb-4"
+                    *ngIf="showAlert"
+                    [appearance]="'outline'"
+                    [showIcon]="false"
+                    [type]="alert.type"
+                    [@shake]="alert.type === 'error'">
+                {{alert.message}}
+            </fuse-alert>
+
+
+            <!-- Sign in form -->
+            <form
+                    class="mt-8"
+                    [formGroup]="signInForm"
+                    #signInNgForm="ngForm">
+
+                <!-- Email field -->
+                <mat-form-field class="w-full">
+                    <mat-label>Username</mat-label>
+                    <input
+                            id="email"
+                            matInput
+                            [formControlName]="'username'">
+                    <mat-error *ngIf="signInForm.get('username').hasError('required')">
+                        Username is required
+                    </mat-error>
+
+                </mat-form-field>
+
+                <!-- Password field -->
+                <mat-form-field class="w-full">
+                    <mat-label>Password</mat-label>
+                    <input
+                            id="password"
+                            matInput
+                            type="password"
+                            [formControlName]="'password'"
+                            #passwordField>
+                    <button
+                            mat-icon-button
+                            type="button"
+                            (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
+                            matSuffix>
+                        <mat-icon
+                                class="icon-size-5"
+                                *ngIf="passwordField.type === 'password'"
+                                [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                        <mat-icon
+                                class="icon-size-5"
+                                *ngIf="passwordField.type === 'text'"
+                                [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+                    </button>
+                    <mat-error>
+                        Password is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field *ngIf="reportingUnits!==null" class="w-full">
+                    <mat-select
+                            [formControlName]="'reportingUnit'"
+                            [placeholder]="'Select Reporting'">
+
+                        <mat-option *ngFor="let reportType of reportingUnits"
+                                    [value]="reportType.id">{{reportType.name}}</mat-option>
+
+                    </mat-select>
+                    <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                    <mat-error>
+                        Reporting select is required
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Actions -->
+                <div class="inline-flex items-end justify-between w-full mt-1.5">
+                    <mat-checkbox
+                            [color]="'primary'"
+                            [formControlName]="'rememberMe'">
+                        Remember me
+                    </mat-checkbox>
+                    <a
+                            class="text-md font-medium text-primary-500 hover:underline"
+                            [routerLink]="['/forgot-password']">Forgot password?
+                    </a>
+                </div>
+
+                <!-- Submit button -->
+                <button
+                        class="fuse-mat-button-large w-full mt-6"
+                        mat-flat-button
+                        [color]="'primary'"
+                        [disabled]="signInForm.disabled"
+                        (click)="activateRealLogin?signInWithReportUnit():signIn()">
+                    <span *ngIf="!signInForm.disabled">
+                        Sign in
+                    </span>
+                    <mat-progress-spinner
+                            *ngIf="signInForm.disabled"
+                            [diameter]="24"
+                            [mode]="'indeterminate'"></mat-progress-spinner>
+                </button>
+
+            </form>
+        </div>
+    </div>
+    <div class="signin-img relative hidden md:flex flex-auto items-center justify-center w-1/2 h-full p-16 lg:px-28 overflow-hidden bg-gray-800 dark:border-l">
+       
+        <!-- Content -->
+        <div class="z-10 relative w-full max-w-2xl">
+            <div class="text-7xl font-bold leading-none text-gray-100">
+                <div>Manage Access Risks</div>
+                <div>And Controls</div>
+            </div>
+            <div class="mt-6 text-lg tracking-tight leading-6 text-gray-200">
+                Reliable compliance solutions made accessible.
+            </div>
+        </div>
+    </div>
+</div>

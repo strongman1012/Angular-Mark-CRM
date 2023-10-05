@@ -1,0 +1,6 @@
+<div *ngIf="form.controls[name] | isFieldInvalid : form.controls[name].value">
+    {{ form.controls[name] | validation:form.controls[name].value }}
+</div>
+<div *ngIf="form.controls[name].errors?.serverError">
+    {{ form.controls[name].errors?.serverError }}
+</div>

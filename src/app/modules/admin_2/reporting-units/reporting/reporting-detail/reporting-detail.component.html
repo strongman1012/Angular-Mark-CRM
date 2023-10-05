@@ -1,0 +1,45 @@
+<ng-container *ngIf="users">
+
+    <mat-dialog-content class="mat-typography">
+        <p-table #dt2 [value]="users" dataKey="id" styleClass="p-datatable-gridlines">
+            <ng-template pTemplate="caption">
+
+                <h2 mat-dialog-title>Report Unit Details</h2>
+
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th *ngFor="let col of selectedColumns" pSortableColumn="{{col.field}}">
+                        {{col.header}}
+                        <p-sortIcon field="{{col.field}}"></p-sortIcon>
+
+                    </th>
+                </tr>
+
+            </ng-template>
+            <ng-template pTemplate="body" let-user>
+                <tr [pSelectableRow]="user">
+                    <ng-template ngFor let-item [ngForOf]="selectedColumns">
+                        <td *ngIf="item.field!=='enabled'">
+                            {{user[item.field]}}
+                        </td>
+
+                        <td *ngIf="item.field ==='enabled'">
+                            <i class="pi"
+                               [ngClass]="{'true-icon pi-check-circle': user.enabled, 'false-icon pi-times-circle': !user.enabled}">
+
+                            </i>
+                        </td>
+
+
+                    </ng-template>
+
+                </tr>
+            </ng-template>
+        </p-table>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close="">Cancel</button>
+    </mat-dialog-actions>
+</ng-container>

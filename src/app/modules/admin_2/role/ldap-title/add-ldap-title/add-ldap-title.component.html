@@ -1,0 +1,42 @@
+<div class="flex-auto p-5">
+    <h2 mat-dialog-title>Create Ldap Title</h2>
+    <ng-container *ngIf="form$ | async ; else loading">
+        <form class="mt-8" [formGroup]="form">
+            <mat-dialog-content>
+                <div class="flex flex-col col-span-2 flex-auto">
+                    <mat-form-field>
+                        <mat-label>Ldap Title</mat-label>
+                        <input matInput type="text" formControlName="ldapTitle"/>
+                        <mat-error>
+                            <form-error [form]="form" name="ldapTitle"></form-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="flex flex-col mb-5">
+                        <label>Select Roles</label>
+                        <p-pickList [source]="roles" [target]="targetRoles" sourceHeader="Available"
+                                    targetHeader="Selected"
+                                    [dragdrop]="true"
+                                    [responsive]="true" [sourceStyle]="{'height':'20rem'}"
+                                    [targetStyle]="{'height':'20rem'}" filterBy="roleName"
+                                    sourceFilterPlaceholder="Search by name"
+                                    targetFilterPlaceholder="Search by name">
+                            <ng-template let-role pTemplate="item">
+                                <div class="product-item">
+                                    <div class="product-list-detail">
+                                        <span class="mb-2">{{role.roleName}}</span>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </p-pickList>
+                    </div>
+
+                </div>
+            </mat-dialog-content>
+            <mat-dialog-actions align="end">
+                <button mat-button mat-dialog-close="">Cancel</button>
+                <button mat-button [disabled]="!form.valid" (click)="store()">Save</button>
+            </mat-dialog-actions>
+        </form>
+    </ng-container>
+    <ng-template #loading>Please wait...</ng-template>
+</div>

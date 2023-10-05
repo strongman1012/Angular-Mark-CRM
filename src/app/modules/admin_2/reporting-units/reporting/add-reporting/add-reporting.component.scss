@@ -1,0 +1,15 @@
+::ng-deep .mat-form-field.mat-form-field-appearance-fill.mat-form-field-has-label .mat-form-field-wrapper {
+  margin-top: 12px !important;
+}
+
+::ng-deep .mat-dialog-content {
+  max-height: inherit;
+}
+
+::ng-deep .p-picklist-buttons.p-picklist-source-controls {
+  display: none;
+}
+
+::ng-deep .p-picklist-buttons.p-picklist-target-controls {
+  display: none;
+}

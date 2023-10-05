@@ -1,0 +1,160 @@
+/* ----------------------------------------------------------------------------------------------------- */
+/*  @ Import/write your custom styles here.
+/*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
+/* ----------------------------------------------------------------------------------------------------- */
+
+.p-datatable table{
+  width: 100%!important;
+}
+
+.p-picklist-buttons.p-picklist-source-controls {
+  display: none;
+}
+
+.p-picklist-buttons.p-picklist-target-controls {
+  display: none;
+}
+
+/* ----------------------------------------------------------------------------------------------------- */
+/*  @ Import/write your custom styles here.
+/*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
+/* ----------------------------------------------------------------------------------------------------- */
+
+.dark, .dark .dark\:bg-card, .dark .dark\:shadow-none, .dark fuse-vertical-navigation {
+  background-color: #1d1f21 !important;
+  border-color: #444746 !important;
+}
+
+.dark .bg-default > *, .bg-gray-900 {
+  background-color: #212121 !important;
+}
+
+.dark .dark\:bg-default {
+  background-color: #212121 !important;
+}
+
+.dark .p-datatable .p-datatable-tbody > tr, .dark .p-dialog .p-dialog-content,
+.dark .p-dialog .p-dialog-header, .dark .p-paginator,
+.dark .p-datatable .p-datatable-header,
+.dark .p-datatable-thead,
+.dark .p-datatable .p-datatable-thead > tr > th, .dark .p-dropdown-panel, .dark .p-dropdown,
+.dark .p-menu.p-menu-overlay, .dark .p-dialog .p-dialog-footer, .dark .p-card {
+  background-color: #212121 !important;
+  border-color: #444746 !important;
+}
+
+.dark p-datatable-header ng-star-inserted, .dark .p-inputtext {
+  background-color: #21262d !important;
+
+}
+
+.dark .p-button {
+  background-color: #21262d !important;
+}
+
+.dark .p-datatable .p-datatable-tbody > tr > td {
+  border-color: #444746 !important;
+}
+
+.dark .mat-checkbox-background {
+  background-color: white !important;
+}
+
+.dark .ck.ck-editor__main > .ck-editor__editable {
+  background: black;
+}
+
+.ck-editor__editable_inline {
+  min-height: 200px !important;
+}
+.ck-editor__editable {
+  max-height: 300px;
+}
+.dark .ck.ck-toolbar, .dark .ck.ck-list, .dark .ck.ck-input, .dark .ck .ck-media-form, .dark .ck {
+  background: black;
+}
+
+.dark .ck .ck-label {
+  color: black !important;
+}
+.dark span {
+  color: white !important;
+}
+.p-datatable .p-datatable-header{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 0px!important;
+  padding-right: 0px!important;
+}
+.light .p-button{
+  color: #4F46E5;
+}
+
+.p-dialog-content{
+  overflow-y:auto!important; ;
+}
+
+.light .p-fileupload-choose{
+  color:white!important;
+}
+
+body.dark .mat-stepper-horizontal, body.dark .mat-stepper-vertical, body .dark .mat-stepper-horizontal, body .dark .mat-stepper-vertical {
+  background-color: #333333;
+}
+
+body.dark .mat-dialog-container, body .dark .mat-dialog-container {
+  box-shadow: 0px 11px 15px -7px rgb(0 0 0 / 20%), 0px 24px 38px 3px rgb(0 0 0 / 14%), 0px 9px 46px 8px rgb(0 0 0 / 12%);
+  background: #333333;
+  color: white;
+}
+body.dark .mat-select-panel, body .dark .mat-select-panel {
+  background: #333333;
+}
+
+.p-datatable .p-datatable-tbody > tr.p-highlight {
+  background: rgba(147, 197, 253, 0.16);
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.dark .p-datatable .p-datatable-tbody > tr.p-highlight {
+  background: black!important;
+  color: rgba(255, 255, 255, 0.87);
+  z-index: 5000;
+}
+
+.p-component {
+  font-size: 0.875rem;
+}
+
+.p-sortable-column .pi {
+  font-size: 0.75rem;
+}
+
+.p-multiselect .p-multiselect-label {
+  padding: 0.5rem 0.75rem;
+}
+
+.p-button.p-button-sm {
+  padding: 0.5rem 0.75rem;
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page,
+.p-paginator .p-paginator-first,
+.p-paginator .p-paginator-prev,
+.p-paginator .p-paginator-next,
+.p-paginator .p-paginator-last {
+  height: 35px;
+  width: 35px;
+}
+
+.p-paginator .p-dropdown {
+  height: 35px;
+}
+
+.p-inputtext {
+  padding: 0.5rem;
+}
+
+.p-dropdown .p-dropdown-trigger {
+  width: 35px;
+}

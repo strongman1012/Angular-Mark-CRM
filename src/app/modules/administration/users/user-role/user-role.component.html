@@ -1,0 +1,23 @@
+<div class="flex-auto ">
+    <h2 mat-dialog-title>Change User Roles</h2>
+    <mat-dialog-content class="mat-typography">
+        <p-pickList [source]="userRoles" [target]="selectedUserRoles" sourceHeader="Available" targetHeader="Selected"
+                    [dragdrop]="true"
+                    [responsive]="true" [sourceStyle]="{'height':'20rem'}" [targetStyle]="{'height':'20rem'}"
+                    filterBy="roleName"
+                    sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name">
+            <ng-template let-role pTemplate="item">
+                <div class="role-item">
+                    <div class="product-list-detail">
+                        <span class="mb-2">{{role.roleName}}</span>
+
+                    </div>
+                </div>
+            </ng-template>
+        </p-pickList>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close="" color="warn">Close</button>
+        <button mat-button color="primary" (click)="saveUserRoles()">Save</button>
+    </mat-dialog-actions>
+</div>

@@ -1,0 +1,22 @@
+/* ----------------------------------------------------------------------------------------------------- */
+/*  @ Main Tailwind file for injecting utilities.
+/* ----------------------------------------------------------------------------------------------------- */
+@tailwind utilities;
+
+@import "../assets/icons/style.css";
+
+.nav_link {
+  @apply bg-white h-full p-8 block text-center text-lg;
+
+  &:hover {
+    @apply bg-primary text-white drop-shadow;
+
+    .icon {
+      @apply text-white;
+    }
+  }
+
+  .icon {
+    @apply text-8xl block text-primary;
+  }
+}

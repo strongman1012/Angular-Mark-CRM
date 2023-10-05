@@ -1,0 +1,32 @@
+[
+    {
+        "nav_icon": "icon-radar",
+        "nav_link": "/acm/acmdashboard",
+        "nav_label": "Access Conflict Monitor"
+    },
+    {
+        "nav_icon": "icon-key",
+        "nav_link": "/riskanalysis/#/riskanalysis/privdashboard/privilegesrequestdahboard",
+        "nav_label": "Privilege Access Management"
+    },
+    {
+        "nav_icon": "icon-share",
+        "nav_link": "/riskanalysis/#/riskanalysis/wfDashboard/",
+        "nav_label": "Compliant Access Management"
+    },
+    {
+        "nav_icon": "icon-loupe",
+        "nav_link": "/riskanalysis/#/riskanalysis/icm/dashboards",
+        "nav_label": "Internal Control Monitor"
+    },
+    {
+        "nav_icon": "icon-radar",
+        "nav_link": "/riskanalysis/#/riskanalysis/riskExecution/riskExecution",
+        "nav_label": "Risk Execution Monitor"
+    },
+    {
+        "nav_icon": "icon-settings",
+        "nav_link": "/riskanalysis",
+        "nav_label": "Administration"
+    }
+]

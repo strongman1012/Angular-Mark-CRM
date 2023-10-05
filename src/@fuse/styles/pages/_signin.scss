@@ -1,0 +1,21 @@
+.signin-img {
+    background-image: url('/assets/images/login_background.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &:before {
+        content: '';
+        right: 0;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        position: absolute;
+        background: rgba(0, 0, 0, 0.3);
+    }
+}
+
+:root {
+    --marc-primary: 259BEE;
+    --white: #ffffff;
+  }
+  

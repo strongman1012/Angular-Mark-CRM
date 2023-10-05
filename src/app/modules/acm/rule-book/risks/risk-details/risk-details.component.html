@@ -1,0 +1,28 @@
+<custom-dialog header="Risk Detail overflow-y-auto">
+    <div body>
+        <div class="flex flex-auto flex-col">
+            <div *ngIf="risk" class="pb-3">
+                <div class="flex flex-col justify-evenly">
+                    <span>Risk Name: {{risk.name}}</span>
+                    <span>Description: {{risk.riskDescription}}</span>
+                    <span>Risk Condition: {{risk.riskCondition}}</span>
+                    <span>Detail Description: </span>
+                </div>
+            </div>
+            <div class="overflow-y-auto h-[250px] max-h-[250px]">
+                <custom-ps-table [items]="itemsForTable" [primaryKey]="primaryKey" [columns]="cols" [displaySearch]="false"
+                     [onRowSelect]="onRowSelect" [onRowUnselect]="onRowUnselect">
+
+                </custom-ps-table>
+            </div>
+
+            <div class="overflow-y-auto h-[250px] max-h-[250px] mt-3">
+            
+                <custom-ps-table *ngIf="showDetail" [items]="selectedItems" primaryKey="fieldValue" [displaySearch]="false"
+                    [columns]="selectedCols">
+
+                </custom-ps-table>
+            </div>
+        </div>
+    </div>
+</custom-dialog>

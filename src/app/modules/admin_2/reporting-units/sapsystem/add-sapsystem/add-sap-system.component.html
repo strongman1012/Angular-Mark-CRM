@@ -1,0 +1,225 @@
+<div class="w-full md:w-auto max-w-full">
+    <h2 mat-dialog-title>{{title}}</h2>
+    <ng-container *ngIf="form$ | async as form; else loading">
+        <form class="mt-8" [formGroup]="form">
+            <mat-dialog-content class="mat-typography">
+                <div class="grid grid-cols-3 flex-auto gap-4">
+                    <div class="flex flex-col col-span-2  flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                        <div class="text-xl font-semibold pb-6">Required</div>
+                        <div class="grid grid-cols-2 flex-auto gap-4">
+                            <mat-form-field>
+                                <mat-label>Type</mat-label>
+                                <mat-select formControlName="offline" (selectionChange)="typeSelection($event)">
+                                    <mat-option *ngFor="let type of types" [value]="type.value">
+                                        {{type.text}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>SID</mat-label>
+                                <input matInput type="text" formControlName="SID"/>
+                                <mat-error>
+                                    <form-error [form]="form" name="SID"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Destination Name</mat-label>
+                                <input matInput type="text" formControlName="destinationName"/>
+                                <mat-error>
+                                    <form-error [form]="form" name="destinationName"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+
+
+                            <mat-form-field>
+                                <mat-label>Description</mat-label>
+                                <input matInput type="text" formControlName="description"/>
+                                <mat-error>
+                                    <form-error [form]="form" name="description"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Host</mat-label>
+                                <input matInput type="text" formControlName="hostName"/>
+                                <mat-error>
+                                    <form-error [form]="form" name="hostName"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Instance/Port No</mat-label>
+                                <input matInput type="text" formControlName="sysNr"/>
+                                <mat-error>
+                                    <form-error [form]="form" name="sysNr"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Username</mat-label>
+                                <input matInput type="text" formControlName="userName"/>
+                                <mat-error>
+                                    <form-error [form]="form" name="userName"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Password</mat-label>
+                                <input matInput type="password" formControlName="password"/>
+                                <mat-error>
+                                    <form-error [form]="form" name="password"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Language</mat-label>
+                                <mat-select formControlName="languageCode">
+                                    <mat-option *ngFor="let language of languages" [value]="language[0]">
+                                        {{language[1]}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <form-error [form]="form" name="languageCode"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Client</mat-label>
+                                <input matInput type="text" formControlName="clientNumber"/>
+                                <mat-error>
+                                    <form-error [form]="form" name="clientNumber"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+
+
+                            <mat-form-field>
+                                <mat-label>IsPooled?</mat-label>
+                                <mat-select formControlName="pooled" (selectionChange)="pooledChange($event)">
+                                    <mat-option *ngFor="let yesNo of yesNoFields" [value]="yesNo.value">
+                                        {{yesNo.text}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <form-error [form]="form" name="pooled"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Timezone</mat-label>
+                                <mat-select formControlName="timeZone">
+                                    <mat-option *ngFor="let item of timezones" [value]="item.id">
+                                        {{item.name}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <form-error [form]="form" name="timeZone"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>System Role</mat-label>
+                                <mat-select formControlName="systemRole">
+                                    <mat-option *ngFor="let role of systemRoles" [value]="role">
+                                        {{role}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <form-error [form]="form" name="systemRole"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>License Check?</mat-label>
+                                <mat-select formControlName="licenseCheck">
+                                    <mat-option *ngFor="let yesNo of yesNoFields" [value]="yesNo.value">
+                                        {{yesNo.text}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <form-error [form]="form" name="licenseCheck"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="flex flex-col col-span-1 flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+
+                        <div class="text-xl font-semibold pb-6">Optional</div>
+                        <div class="grid grid-cols-1 flex-auto gap-4">
+                            <mat-form-field>
+                                <mat-label>Enable Cam?</mat-label>
+                                <mat-select formControlName="hideInUserAdmin">
+                                    <mat-option *ngFor="let yesNo of yesNoFields" [value]="yesNo.value">
+                                        {{yesNo.text}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <form-error [form]="form" name="hideInUserAdmin"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Is Central User Repository?</mat-label>
+                                <mat-select formControlName="centralRepo">
+                                    <mat-option *ngFor="let yesNo of yesNoFields" [value]="yesNo.value">
+                                        {{yesNo.text}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <form-error [form]="form" name="centralRepo"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Is HANA System?</mat-label>
+                                <mat-select formControlName="hanaSystem">
+                                    <mat-option *ngFor="let yesNo of yesNoFields" [value]="yesNo.value">
+                                        {{yesNo.text}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <form-error [form]="form" name="hanaSystem"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Enable Custom DBTABLOG?</mat-label>
+                                <mat-select formControlName="customDbtablog">
+                                    <mat-option *ngFor="let yesNo of yesNoFields" [value]="yesNo.value">
+                                        {{yesNo.text}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <form-error [form]="form" name="customDbtablog"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>Pool Capacity</mat-label>
+                                <input matInput type="text" formControlName="poolCapacity"/>
+                                <mat-error>
+                                    <form-error [form]="form" name="poolCapacity"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+
+
+                            <mat-form-field>
+                                <mat-label>Peak Limit</mat-label>
+                                <input matInput type="text" formControlName="peakLimit"/>
+                                <mat-error>
+                                    <form-error [form]="form" name="peakLimit"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </mat-dialog-content>
+
+            <mat-dialog-actions align="end">
+                <button mat-button mat-dialog-close="">Cancel</button>
+                <button mat-button [disabled]="!form.valid" (click)="storeOrUpdateSapSystem()">Save</button>
+            </mat-dialog-actions>
+
+        </form>
+    </ng-container>
+    <ng-template #loading>Please wait...</ng-template>
+</div>

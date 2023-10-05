@@ -1,0 +1,162 @@
+<div class="w-full md:w-auto max-w-full">
+    <div class="flex  justify-between">
+        <h2 mat-dialog-title class="flex">{{title}}</h2>
+        <div class="flex">
+            <button mat-button mat-flat-button mat-dialog-close="">Close</button>
+        </div>
+    </div>
+    <ng-container *ngIf="form$ | async ; else loading">
+        <mat-dialog-content class="mat-typography">
+            <mat-stepper [linear]="true" #stepper>
+                <mat-step [stepControl]="firstFormGroup" [optional]="false">
+                    <form class="mt-8" [formGroup]="firstFormGroup">
+                        <ng-template matStepLabel>New DB Details</ng-template>
+                        <div class="flex flex-col col-span-2 flex-auto p-6">
+
+                            <mat-form-field>
+                                <mat-label>Connection Name</mat-label>
+                                <input matInput type="text" formControlName="name"/>
+                                <mat-error>
+                                    <form-error [form]="firstFormGroup" name="name"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Description</mat-label>
+                                <input matInput type="text" formControlName="description"/>
+                                <mat-error>
+                                    <form-error [form]="firstFormGroup" name="description"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Database Type</mat-label>
+                                <mat-select formControlName="driverClassName">
+                                    <mat-option [value]="">
+                                        Please Select
+                                    </mat-option>
+                                    <mat-option [value]="'com.mysql.cj.jdbc.Driver'">
+                                        MySQL
+                                    </mat-option>
+                                </mat-select>
+                                <input matInput type="text" formControlName="driverClassName"/>
+                                <mat-error>
+                                    <form-error [form]="firstFormGroup" name="driverClassName"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>DBHost Name</mat-label>
+                                <input matInput type="text" formControlName="dbHost"/>
+                                <mat-error>
+                                    <form-error [form]="firstFormGroup" name="dbHost"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Database</mat-label>
+                                <input matInput type="text" formControlName="dataBase"/>
+                                <mat-error>
+                                    <form-error [form]="firstFormGroup" name="dataBase"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Username</mat-label>
+                                <input matInput type="text" formControlName="userName"/>
+                                <mat-error>
+                                    <form-error [form]="firstFormGroup" name="userName"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Password</mat-label>
+                                <input matInput type="password" formControlName="password"/>
+                                <mat-error>
+                                    <form-error [form]="firstFormGroup" name="password"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                        </div>
+                    </form>
+                    <div class=" flex justify-end">
+                        <button class="" mat-button matStepperNext (click)="saveFirst()"
+                                [disabled]="!firstFormGroup.valid">Next
+                        </button>
+                    </div>
+                </mat-step>
+                <mat-step [stepControl]="secondFormGroup">
+                    <form class="mt-8" [formGroup]="secondFormGroup">
+                        <ng-template matStepLabel>Reporting Unit</ng-template>
+                        <div class="flex flex-col col-span-2 flex-auto p-6">
+                            <mat-form-field>
+                                <mat-label>ReportingUnit</mat-label>
+                                <input matInput type="text" formControlName="name"/>
+                                <mat-error>
+                                    <form-error [form]="secondFormGroup" name="name"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+                            <div class="flex flex-col mb-5">
+                                <label>Select Sap Systems</label>
+                                <p-pickList [source]="sapSystems" [target]="targetSapSystems" sourceHeader="Available"
+                                            targetHeader="Selected"
+                                            [dragdrop]="true"
+                                            [responsive]="true" [sourceStyle]="{'height':'20rem'}"
+                                            [targetStyle]="{'height':'20rem'}" filterBy="destinationName"
+                                            sourceFilterPlaceholder="Search by name"
+                                            targetFilterPlaceholder="Search by name">
+                                    <ng-template let-reportingUnit pTemplate="item">
+                                        <div class="product-item">
+                                            <div class="product-list-detail">
+                                                <span class="mb-2">{{reportingUnit.destinationName}}</span>
+
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </p-pickList>
+                            </div>
+                            <mat-form-field>
+                                <mat-label>Notification Scope</mat-label>
+                                <mat-select formControlName="notificationScope">
+                                    <mat-option *ngFor="let yesNo of yesNoFields" [value]="yesNo.value">
+                                        {{yesNo.text}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <form-error [form]="secondFormGroup" name="notificationScope"></form-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </form>
+                    <div class="mt-3">
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext (click)="saveSecond()"
+                                [disabled]="!secondFormGroup.valid">Next
+                        </button>
+                    </div>
+                </mat-step>
+                <mat-step>
+                    <form class="mt-8">
+                        <ng-template matStepLabel>Process</ng-template>
+                        <div class="flex flex-col col-span-2 flex-auto p-6">
+                            <p-table *ngIf="resultTable" [value]="resultTable">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-item>
+                                    <tr>
+                                        <td>{{item.key}}</td>
+                                        <td>{{item.value}}</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </form>
+                    <div class="mt-3">
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button mat-dialog-close="">Finish
+                        </button>
+                    </div>
+                </mat-step>
+            </mat-stepper>
+        </mat-dialog-content>
+    </ng-container>
+    <ng-template #loading>Please wait...</ng-template>
+</div>

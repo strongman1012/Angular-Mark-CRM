@@ -1,0 +1,89 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10 ">
+        <h2 mat-dialog-title>AdHoc PreSelection</h2>
+        <form
+                class="mt-8"
+                [formGroup]="loadSelectionForm">
+
+            <mat-dialog-content class="mat-typography">
+
+                <mat-form-field class="w-full">
+                    <mat-label>Select Subsystem</mat-label>
+                    <mat-select
+                            [formControlName]="'sapSystemId'"
+                            [placeholder]="'Please Select'">
+
+                        <mat-option *ngFor="let reportType of reportingUnit.sapSystemList"
+                                    [value]="reportType.id">{{reportType.name}}</mat-option>
+
+                    </mat-select>
+                    <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                    <mat-error>
+                        Subsystem select is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-full">
+                    <mat-label>Analysis Target</mat-label>
+                    <mat-select
+                            [formControlName]="'target'"
+                            [placeholder]="'Please Select'">
+
+                        <mat-option *ngFor="let target of reportingUnit.analysisTargetList"
+                                    [value]="target">{{target}}</mat-option>
+
+                    </mat-select>
+                    <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                    <mat-error>
+                        Target select is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-full">
+                    <mat-label>Analysis Type</mat-label>
+                    <mat-select
+                            [formControlName]="'analysisType'"
+                            [placeholder]="'Please Select'">
+
+                        <mat-option *ngFor="let type of reportingUnit.analysisTypeList"
+                                    [value]="type">{{type}}</mat-option>
+
+                    </mat-select>
+                    <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                    <mat-error>
+                        Analysis Type is required
+                    </mat-error>
+                </mat-form-field>
+                <div class="w-full">
+                    <mat-label>Other Options</mat-label>
+                    <div class="flex items-center space-x-8" formGroupName="checkboxes">
+                        <ul>
+                            <li *ngFor="let item of loadSelectionForm.get('checkboxes').value | keyvalue">
+                                <label>
+                                    <input type="checkbox" [formControlName]="item.key" [value]="item.key"/>
+                                    {{item.key.split('-')[1]}}
+                                </label>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+            </mat-dialog-content>
+            <mat-dialog-actions align="end">
+                <button mat-button mat-dialog-close="">Cancel</button>
+                <button mat-button (click)="next()">Next</button>
+            </mat-dialog-actions>
+        </form>
+    </div>
+
+</div>

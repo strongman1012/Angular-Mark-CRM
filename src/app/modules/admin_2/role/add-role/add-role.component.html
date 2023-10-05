@@ -1,0 +1,28 @@
+<div class="flex-auto ">
+    <h2 mat-dialog-title>Create a new role</h2>
+    <form class="mt-8" [formGroup]="form">
+        <mat-dialog-content class="mat-typography">
+            <mat-form-field class="w-full">
+                <mat-label>Role Name</mat-label>
+                <input matInput type="text" formControlName="roleName"/>
+                <mat-error>
+                    <form-error [form]="form" name="roleName"></form-error>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="w-full">
+                <mat-label>Role Description</mat-label>
+                <input matInput type="text" formControlName="roleDescription"/>
+                <mat-error>
+                    <form-error [form]="form" name="roleDescription"></form-error>
+                </mat-error>
+
+            </mat-form-field>
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close="">Cancel</button>
+            <button mat-button [disabled]="!form.valid" (click)="storeOrUpdate()">Save</button>
+        </mat-dialog-actions>
+
+    </form>
+</div>

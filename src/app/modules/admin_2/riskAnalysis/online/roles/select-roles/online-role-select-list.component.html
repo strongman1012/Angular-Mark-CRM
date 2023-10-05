@@ -1,0 +1,17 @@
+<custom-dialog header="Select Roles" [showCloseButton]="false">
+    <div actions>
+        <button mat-button  (click)="saveSelected()">Add Selected</button>
+        <button mat-button mat-dialog-close="" (click)="saveAll()">Select All</button>
+        <button mat-button mat-flat-button  (click)="closeDialog()">Close</button>
+    </div>
+    <div body>
+        <custom-p-table [callBack]="loadData" [columns]="cols" [items]="items" primaryKey="name"
+                        [totalRecords]="totalRecords"
+                        [onRowSelect]="onRowSelect"
+                        [onRowUnselect]="onRowUnselect"
+                        filterEnabled="true" selectionMode="multiple">
+        </custom-p-table>
+    </div>
+
+</custom-dialog>
+

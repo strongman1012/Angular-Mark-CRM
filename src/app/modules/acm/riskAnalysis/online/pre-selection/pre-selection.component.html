@@ -1,0 +1,97 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10 ">
+        <h2 mat-dialog-title>AdHoc PreSelection</h2>
+        <form class="mt-8" [formGroup]="loadSelectionForm">
+
+            <mat-dialog-content class="mat-typography">
+
+                <mat-form-field class="w-full">
+                    <mat-label>Select Subsystem</mat-label>
+                    <mat-select
+                            [formControlName]="'sapSystemId'"
+                            [placeholder]="'Please Select'" (selectionChange)="initFavorites()">
+
+                        <mat-option *ngFor="let reportType of reportingUnit.sapSystems | keyvalue"
+                                    [value]="reportType.key">{{reportType.value}}</mat-option>
+
+                    </mat-select>
+                    <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                    <mat-error>
+                        Subsystem select is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-full">
+                    <mat-label>Analysis Target</mat-label>
+                    <mat-select
+                            [formControlName]="'analysisTarget'"
+                            [placeholder]="'Please Select'"
+                    >
+
+                        <mat-option *ngFor="let target of reportingUnit.targetTypes"
+                                    [value]="target">{{target}}</mat-option>
+
+                    </mat-select>
+                    <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                    <mat-error>
+                        Target select is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-full">
+                    <mat-label>Analysis Type</mat-label>
+                    <mat-select
+                            [formControlName]="'analysisType'"
+                            [placeholder]="'Please Select'" (selectionChange)="initFavorites()">
+
+                        <mat-option *ngFor="let type of reportingUnit.analysisTypes"
+                                    [value]="type">{{type}}</mat-option>
+
+                    </mat-select>
+                    <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                    <mat-error>
+                        Analysis Type is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-full">
+                    <mat-label>Variants</mat-label>
+                    <mat-select [formControlName]="'favorites'" multiple>
+                        <mat-option *ngFor="let variant of variants"
+                                    [value]="variant.id">{{variant.description}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div class="w-full">
+                    <mat-label>Other Options</mat-label>
+                    <div class="flex items-center space-x-8">
+                        <ul>
+                            <li><label><input type="checkbox" [formControlName]="'excludeInactive'"/>Exclude
+                                Inactive</label></li>
+                            <li><label><input type="checkbox" [formControlName]="'excludeUnassigned'"/>Exclude
+                                Unassigned</label></li>
+                            <li><label><input type="checkbox" [formControlName]="'includeMitigations'"/>Include
+                                Mitigations</label></li>
+                            <li><label><input type="checkbox" [formControlName]="'orgFieldCheck'"/>Org Field
+                                Check</label></li>
+                        </ul>
+
+                    </div>
+
+                </div>
+            </mat-dialog-content>
+            <mat-dialog-actions align="end">
+                <button mat-button mat-dialog-close="">Cancel</button>
+                <button mat-button (click)="next()">Next</button>
+            </mat-dialog-actions>
+        </form>
+    </div>
+
+</div>
